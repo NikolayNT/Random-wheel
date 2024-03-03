@@ -83,9 +83,9 @@ export default {
       sliderValue: '',
       secondValue: '',
       threeValue: '',
-      firstMean: 33,
-      secondMean: 33,
-      threeMean: 34,
+      firstMean: 50,
+      secondMean: 50,
+      threeMean: 50,
       rotate: 0,
       canvasObj: {
         "width": 470,
@@ -100,9 +100,9 @@ export default {
     this.$nextTick(function () {
       // Код, который будет запущен только после
       // отрисовки всех представлений
-      this.sliderValue = 33;
-      this.secondValue = 33;
-      this.threeValue = 34;
+      this.sliderValue = 50;
+      this.secondValue = 50;
+      this.threeValue = 50;
       //this.changeArea('first', this.sliderValue);
       //this.changeAreaTwo('second', this.secondValue, this.getCoordinateEndPoint(this.sliderValue), this.sliderValue);
       this.draw();
