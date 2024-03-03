@@ -98,13 +98,12 @@ export default {
   },
   mounted() {
     this.$nextTick(function () {
-      // Код, который будет запущен только после
-      // отрисовки всех представлений
+      
       this.sliderValue = 50;
       this.secondValue = 50;
       this.threeValue = 50;
-      //this.changeArea('first', this.sliderValue);
-      //this.changeAreaTwo('second', this.secondValue, this.getCoordinateEndPoint(this.sliderValue), this.sliderValue);
+
+      this.changeAll();
       this.draw();
     })
   },
