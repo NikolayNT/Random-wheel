@@ -6,22 +6,23 @@
   <div class="parent-canvas" :style="{ 'width': canvasObj.width + 'px', 'height': canvasObj.height + 'px' }">
     <canvas id="canvas" :width="this.canvasObj.width" :height="this.canvasObj.height" class="canvas"></canvas>
     <img src="../../src/img/blue-arrow-23.png" class="arrow">
+    <p class="result-text">Рекомендовано развить: {{ result }}</p>
     <div class="parameters">
       <h1 class="title__text">Компетенции для развития</h1>
       <div class="slider-blok">
-        <input type="text" class="slider-input" />
+        <input id="first" type="text" class="slider-input" />
         <input @mousemove="changeAll(), draw()" @click="changeAll(), draw()" v-model="firstMean" type="range"
           :min="minWeight" :max="maxWeight" step="1" class="first" />
         <p class="slider-mean">{{ firstMean }}</p>
       </div>
       <div class="slider-blok">
-        <input type="text" class="slider-input" />
+        <input id="second" type="text" class="slider-input" />
         <input @mousemove="changeAll(), draw()" @click="changeAll(), draw()" v-model="secondMean" type="range"
           :min="minWeight" :max="maxWeight" step="1" class="second" />
         <p class="slider-mean">{{ secondMean }}</p>
       </div>
       <div class="slider-blok">
-        <input type="text" class="slider-input" />
+        <input id="three" type="text" class="slider-input" />
         <input @mousemove="changeAll(), draw()" @click="changeAll(), draw()" v-model="threeMean" type="range"
           :min="minWeight" :max="maxWeight" step="1" class="three" />
         <p class="slider-mean">{{ threeMean }}</p>
@@ -92,6 +93,7 @@ export default {
       },
       maxWeight: 100,
       minWeight: 0,
+      result: '',
     }
   },
   mounted() {
@@ -215,38 +217,32 @@ export default {
     getRGBcanvas(x, y) {
       const canvas = document.querySelector('.canvas')
       const ctx = canvas.getContext('2d');
-        let ctxGet = ctx.getImageData(x, y, 1, 1);
-        let red = ctxGet.data[0];
-        let green = ctxGet.data[1];
-        let blue = ctxGet.data[2];
-        //let alpha = ctxGet.data[3];
-        //console.log(red + " " + green + " " + blue);
-        return red + " " + green + " " + blue;
+      let ctxGet = ctx.getImageData(x, y, 1, 1);
+      let red = ctxGet.data[0];
+      let green = ctxGet.data[1];
+      let blue = ctxGet.data[2];
+      //let alpha = ctxGet.data[3];
+      return red + " " + green + " " + blue;
     },
 
     win() {
       console.log('Координата')
       const startY = this.canvasObj.height / 2;
-      const startX = this.canvasObj.width / 2 + this.canvasObj.width  / 2 - 5;
+      const startX = this.canvasObj.width / 2 + this.canvasObj.width / 2 - 5;
       console.log(startX)
       console.log(startY)
-      console.log(this.getRGBcanvas(startX - 5, startY+5));
-      
+      console.log(this.getRGBcanvas(startX - 5, startY + 5));
 
-      //const canvas = document.getElementById('canvas');
-      //const ctx = canvas.getContext('2d');
-      //ctx.clearRect(0, 0, this.canvasObj.width, this.canvasObj.height);
-        // координатсы
-        let ooo = Number(this.canvasObj.width)  / 2 - 5 - 7
-        console.log('Радиус: ' + ooo);
-        console.log('x: ' + this.canvasObj.width / 2);
-        console.log('y: ' + this.canvasObj.width / 2);
+      let ooo = Number(this.canvasObj.width) / 2 - 5 - 7
+      console.log('Радиус: ' + ooo);
+      console.log('x: ' + this.canvasObj.width / 2);
+      console.log('y: ' + this.canvasObj.width / 2);
 
-        let x = ooo*Math.cos(14 * 3.6 * Math.PI / 180) + this.canvasObj.width / 2;
-        let y = ooo*Math.sin(14 * 3.6 * Math.PI / 180) + this.canvasObj.width / 2;
+      let x = ooo * Math.cos(14 * 3.6 * Math.PI / 180) + this.canvasObj.width / 2;
+      let y = ooo * Math.sin(14 * 3.6 * Math.PI / 180) + this.canvasObj.width / 2;
 
-        console.log('xnew: ' + x);
-        console.log('ynew: ' + y);
+      console.log('xnew: ' + x);
+      console.log('ynew: ' + y);
 
       /*ctx.beginPath();
       ctx.lineWidth = 1;
@@ -259,64 +255,29 @@ export default {
 
       console.log(this.getRGBcanvas(x, y));
 
-      console.log((this.rotate - Math.floor(this.rotate/360, 0) * 360))
+      console.log((this.rotate - Math.floor(this.rotate / 360, 0) * 360))
 
-        let xooo = ooo*Math.cos(((14 * 3.6) - ((this.rotate - Math.floor(this.rotate/360, 0) * 360))) * Math.PI / 180) + this.canvasObj.width / 2;
-        let yooo = ooo*Math.sin(((14 * 3.6) - ((this.rotate - Math.floor(this.rotate/360, 0) * 360))) * Math.PI / 180) + this.canvasObj.width / 2;
+      let xooo = ooo * Math.cos(((14 * 3.6) - ((this.rotate - Math.floor(this.rotate / 360, 0) * 360))) * Math.PI / 180) + this.canvasObj.width / 2;
+      let yooo = ooo * Math.sin(((14 * 3.6) - ((this.rotate - Math.floor(this.rotate / 360, 0) * 360))) * Math.PI / 180) + this.canvasObj.width / 2;
 
 
-        console.log('xnewooo: ' + xooo);
-        console.log('ynewooo: ' + yooo);
+      console.log('xnewooo: ' + xooo);
+      console.log('ynewooo: ' + yooo);
 
-        console.log(this.getRGBcanvas(xooo, yooo));
+      console.log(this.getRGBcanvas(xooo, yooo));
 
-        if (this.getRGBcanvas(xooo, yooo) === '0 255 0') {
-          alert('Зелёный')
-        }
-        if (this.getRGBcanvas(xooo, yooo) === '255 0 0') {
-          alert('Красный')
-        }
-        if (this.getRGBcanvas(xooo, yooo) === '0 0 255') {
-          alert('Синий')
-        }
-      //console.log(Math.floor(this.rotate/360, 0))
-
-      /*console.log(this.sliderValue * 3.6)
-      console.log(this.secondValue * 3.6)
-      console.log(this.threeValue * 3.6)
-      console.log(Math.floor(this.rotate/360, 0))
-      console.log(this.rotate - Math.floor(this.rotate/360, 0) * 360)
-
-      console.log(Math.floor(this.rotate/360, 0))
-
-      let newX = Math.cos((this.rotate - Math.floor(this.rotate/360, 0) * 360) * Math.PI / 180) * 220
-      console.log(newX)
-      let newY = Math.sin((this.rotate - Math.floor(this.rotate/360, 0) * 360) * Math.PI / 180) * 220
-      console.log(newX)
-      console.log(newY)
-      //Х=cos(alpha)*(x-a)-sin(alpha)*(y-b)+a 
-      //У=sin(alpha)*(x-a)+cos(alpha)*(y-b)+b 
-      //стрелка указыает на 50
-      const canvas = document.querySelector('.canvas')
-      const ctx = canvas.getContext('2d');
-        //let ctxGet = ctx.getImageData(377, 404, 1, 1);
-        let ctxGet = ctx.getImageData(newX, newY, 1, 1);
-        let red = ctxGet.data[0];
-        let green = ctxGet.data[1];
-        let blue = ctxGet.data[2];
-        //let alpha = ctxGet.data[3];
-        console.log(red + " " + green + " " + blue);
-        
-        if (red + " " + green + " " + blue === '0 255 0') {
-          alert('Зелёный')
-        }
-        if (red + " " + green + " " + blue === '255 0 0') {
-          alert('Красный')
-        }
-        if (red + " " + green + " " + blue === '0 0 255') {
-          alert('Синий')
-        }*/
-
+      if (this.getRGBcanvas(xooo, yooo) === '0 255 0') {
+        this.result = document.getElementById("first").value
+        //alert(document.getElementById("first").value)
+      }
+      if (this.getRGBcanvas(xooo, yooo) === '255 0 0') {
+        this.result = document.getElementById("second").value
+        //alert(document.getElementById("second").value)
+      }
+      if (this.getRGBcanvas(xooo, yooo) === '0 0 255') {
+        this.result = document.getElementById("three").value
+        //alert(document.getElementById("three").value)
+      }
     },
 
     twist() {
@@ -338,7 +299,7 @@ export default {
           fill: "both",
         },
       );
-      //this.win()
+
       setTimeout(() => {
         this.win()
       }, 10000);
@@ -413,6 +374,16 @@ p {
 .slider-blok {
   display: flex;
   margin-bottom: 10px;
+}
+
+.result-text {
+  position: absolute;
+  left:115px;
+  bottom: -90px;
+  width: max-content;
+  text-align: left;
+  font-size: 18px;
+  line-height: 20px;
 }
 
 .slider-input {
