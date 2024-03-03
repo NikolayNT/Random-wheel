@@ -157,7 +157,7 @@ export default {
 
     draw() {
       const circle = {
-        "centerX": this.canvasObj.width / 2,
+        "centerX": this.canvasObj.height / 2,
         "centerY": this.canvasObj.width / 2,
         "radius": this.canvasObj.width / 2 - 5,
         "border": 3,
@@ -168,14 +168,8 @@ export default {
       const endPointThree = endPoint + Number(this.threeValue);
 
       const canvas = document.getElementById('canvas');
-
       const ctx = canvas.getContext('2d');
-      //const ctx2 = canvas.getContext('2d');
-      //const ctx3 = canvas.getContext('2d');
-
       ctx.clearRect(0, 0, this.canvasObj.width, this.canvasObj.height);
-      //ctx2.clearRect(0, 0, this.canvasObj.width, this.canvasObj.height);
-      //ctx3.clearRect(0, 0, this.canvasObj.width, this.canvasObj.height);
 
       ctx.beginPath();
       ctx.lineWidth = circle.border;
@@ -218,11 +212,76 @@ export default {
       getCursorPosition(canvas, e);
     },
 
+    getRGBcanvas(x, y) {
+      const canvas = document.querySelector('.canvas')
+      const ctx = canvas.getContext('2d');
+        let ctxGet = ctx.getImageData(x, y, 1, 1);
+        let red = ctxGet.data[0];
+        let green = ctxGet.data[1];
+        let blue = ctxGet.data[2];
+        //let alpha = ctxGet.data[3];
+        //console.log(red + " " + green + " " + blue);
+        return red + " " + green + " " + blue;
+    },
+
     win() {
+      console.log('Координата')
+      const startY = this.canvasObj.height / 2;
+      const startX = this.canvasObj.width / 2 + this.canvasObj.width  / 2 - 5;
+      console.log(startX)
+      console.log(startY)
+      console.log(this.getRGBcanvas(startX - 5, startY+5));
+      
+
+      //const canvas = document.getElementById('canvas');
+      //const ctx = canvas.getContext('2d');
+      //ctx.clearRect(0, 0, this.canvasObj.width, this.canvasObj.height);
+        // координатсы
+        let ooo = Number(this.canvasObj.width)  / 2 - 5 - 7
+        console.log('Радиус: ' + ooo);
+        console.log('x: ' + this.canvasObj.width / 2);
+        console.log('y: ' + this.canvasObj.width / 2);
+
+        let x = ooo*Math.cos(14 * 3.6 * Math.PI / 180) + this.canvasObj.width / 2;
+        let y = ooo*Math.sin(14 * 3.6 * Math.PI / 180) + this.canvasObj.width / 2;
+
+        console.log('xnew: ' + x);
+        console.log('ynew: ' + y);
+
+      /*ctx.beginPath();
+      ctx.lineWidth = 1;
+      ctx.moveTo(x, y);
+      ctx.arc(x, y, this.canvasObj.width  / 2 - 5 - 7, 0, 14 * 3.6 * Math.PI / 180, false);
+      ctx.lineTo(x, y);
+      ctx.fillStyle = 'rgb(0,255,0)';
+      ctx.fill();
+      ctx.stroke();*/
+
+      console.log(this.getRGBcanvas(x, y));
+
+      console.log((this.rotate - Math.floor(this.rotate/360, 0) * 360))
+
+        let xooo = ooo*Math.cos(((14 * 3.6) - ((this.rotate - Math.floor(this.rotate/360, 0) * 360))) * Math.PI / 180) + this.canvasObj.width / 2;
+        let yooo = ooo*Math.sin(((14 * 3.6) - ((this.rotate - Math.floor(this.rotate/360, 0) * 360))) * Math.PI / 180) + this.canvasObj.width / 2;
 
 
+        console.log('xnewooo: ' + xooo);
+        console.log('ynewooo: ' + yooo);
 
-      console.log(this.sliderValue * 3.6)
+        console.log(this.getRGBcanvas(xooo, yooo));
+
+        if (this.getRGBcanvas(xooo, yooo) === '0 255 0') {
+          alert('Зелёный')
+        }
+        if (this.getRGBcanvas(xooo, yooo) === '255 0 0') {
+          alert('Красный')
+        }
+        if (this.getRGBcanvas(xooo, yooo) === '0 0 255') {
+          alert('Синий')
+        }
+      //console.log(Math.floor(this.rotate/360, 0))
+
+      /*console.log(this.sliderValue * 3.6)
       console.log(this.secondValue * 3.6)
       console.log(this.threeValue * 3.6)
       console.log(Math.floor(this.rotate/360, 0))
@@ -256,7 +315,7 @@ export default {
         }
         if (red + " " + green + " " + blue === '0 0 255') {
           alert('Синий')
-        }
+        }*/
 
     },
 
@@ -279,7 +338,7 @@ export default {
           fill: "both",
         },
       );
-
+      //this.win()
       setTimeout(() => {
         this.win()
       }, 10000);
